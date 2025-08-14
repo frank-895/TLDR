@@ -1,8 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from ...api.deps import require_api_key
 from .endpoints.health import router as health_router
 from .endpoints.pipeline import router as pipeline_router
 
-api_router = APIRouter()
+api_router = APIRouter(dependencies=[Depends(require_api_key)])
 
 @api_router.get("/", summary="v1 API Root", tags=["v1"])
 def v1_root():

@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     log_level: str = "info"
     cors_allow_origins: List[str] = ["*"]
     openai_api_key: str = ""
+    api_auth_key: str = ""
 
     model_config = SettingsConfigDict(
         # We already loaded .env files above; keep env_file to support direct usage
