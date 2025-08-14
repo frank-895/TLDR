@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-sans: "Sora", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 html, body, #root {
@@ -17,6 +17,7 @@ body {
   background-image: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 6%) 1px, transparent 0);
   background-size: 24px 24px;
   mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+  animation: gridPan 30s linear infinite;
 }
 
 .glow {
@@ -33,5 +34,45 @@ body {
   0% { transform: translateY(0) translateX(0); }
   50% { transform: translateY(-20px) translateX(20px); }
   100% { transform: translateY(0) translateX(0); }
+}
+
+@keyframes gridPan {
+  0% { background-position: 0 0; }
+  100% { background-position: 240px 240px; }
+}
+
+/* Reveal animations */
+.reveal-up { animation: revealUp 700ms ease-out both; }
+.reveal-fade { animation: revealFade 900ms ease-out both; }
+
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes revealFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Floating image */
+.float-slow { animation: float 12s ease-in-out infinite; }
+
+/* Button sheen effect */
+.btn-sheen { position: relative; overflow: hidden; }
+.btn-sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -60%;
+  width: 60%;
+  transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: sheen 2.4s ease-in-out infinite;
+}
+
+@keyframes sheen {
+  0% { left: -60%; }
+  60% { left: 120%; }
+  100% { left: 120%; }
 }
 

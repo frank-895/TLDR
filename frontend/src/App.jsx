@@ -8,7 +8,7 @@ export default function App() {
 
       <div className="relative z-10 flex min-h-dvh flex-col">
         <header className="border-b border-white/10 bg-black/40 backdrop-blur">
-          <div className="mx-auto max-w-4xl px-4 py-4">
+          <div className="mx-auto max-w-5xl px-6 py-6">
             <div className="flex items-center justify-between">
               <h1 className="text-xl font-semibold tracking-tight">TLDR</h1>
               <a
@@ -24,17 +24,28 @@ export default function App() {
         </header>
 
         <main className="flex-1">
-          <div className="mx-auto max-w-4xl px-4 py-10">
-            <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-6">
-              <h2 className="text-2xl font-semibold">Turn long text into instant insight</h2>
-              <p className="mt-2 text-gray-400">Paste text, get a summary and an interactive quiz. Clean, fast, privacy-friendly.</p>
-            </div>
+          <div className="mx-auto max-w-5xl px-6 py-28">
+            <section className="relative mb-32 grid items-center md:grid-cols-2 md:gap-16">
+              <div className="reveal-up relative z-10">
+                <h2 className="text-5xl font-extrabold tracking-tight text-white md:text-6xl">Too long, didn't read</h2>
+                <p className="mt-6 text-xl text-gray-300">Paste text, get a summary and an interactive quiz.</p>
+              </div>
+              <div className="pointer-events-none absolute inset-0 -z-0">
+                <div className="absolute right-[5%] top-1/2 -translate-y-1/2 opacity-60 md:opacity-70 lg:opacity-80">
+                  <img
+                    src="/hero-blobs.svg"
+                    alt="Animated gradient blobs"
+                    className="h-[28rem] w-[28rem] select-none object-contain md:h-[34rem] md:w-[34rem] lg:h-[40rem] lg:w-[40rem] xl:h-[46rem] xl:w-[46rem]"
+                  />
+                </div>
+              </div>
+            </section>
             <Home />
           </div>
         </main>
 
         <footer className="border-t border-white/10 bg-black/40 backdrop-blur">
-          <div className="mx-auto max-w-4xl px-4 py-4 text-xs text-gray-400">
+          <div className="mx-auto max-w-5xl px-6 py-5 text-xs text-gray-400">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <a

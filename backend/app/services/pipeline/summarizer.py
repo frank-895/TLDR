@@ -20,8 +20,16 @@ llm = ChatOpenAI(
 
 chunk_prompt = PromptTemplate(
     template="""
-    Summarize the following text, keeping the key points and making it readable and understandable.
+    Summarize the following text so that it's:
 
+    - Super concise
+    - Easy to read
+    - Preserves all relevant information
+    - Approachable and engaging
+
+    Use sections, dotpoints, emojis, or formatting to make it scannable and fun.  
+
+    Text to summarize:
     {text}
     """,
     input_variables=["text"]
@@ -30,8 +38,17 @@ chunk_prompt = PromptTemplate(
 final_prompt = PromptTemplate(
     template="""
     The following text is a combination of multiple summaries.
-    Merge them into a single coherent, concise, and readable summary:
+    Merge them into a single coherent, concise, and easy-to-read summary. 
 
+    Guidelines:
+
+    - Preserve all important information
+    - Use sections, headings, or bullet points
+    - Add emojis or light formatting to make it more approachable
+    - Keep the language simple and engaging
+    - Make it scannable so a reader can quickly grasp the key points
+
+    Summaries to merge:
     {text}
     """,
     input_variables=["text"]
