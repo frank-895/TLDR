@@ -56,6 +56,63 @@ Planned improvements to showcase advanced LangChain + AI engineering skills:
 
 ## 🏗️ Getting Started
 
+### Option 1: Docker Development (Recommended)
+
+1. **Clone the repo**
+```bash
+git clone https://github.com/your-username/tldr.git
+cd tldr
+```
+
+2. **Create environment file**
+Create a `.env` file in the project root with:
+```bash
+# Backend Configuration
+ENV=development
+LOG_LEVEL=info
+OPENAI_API_KEY=your_openai_api_key_here
+API_AUTH_KEY=your_api_auth_key_here
+
+# Frontend Configuration
+VITE_API_URL=http://localhost:8000
+```
+
+3. **Start with Makefile commands**
+```bash
+# Start all services
+make up
+
+# Start services in background
+make up-d
+
+# View logs
+make logs
+
+# Stop services
+make down
+
+# Rebuild and restart
+make restart
+```
+
+4. **Access the application**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+- API Docs: http://localhost:8000/docs
+
+**Available Makefile Commands:**
+```bash
+make up          # Start all services
+make up-d        # Start services in background
+make down        # Stop all services
+make restart     # Rebuild and restart services
+make logs        # View service logs
+make clean       # Remove containers and volumes
+make build       # Build all services
+```
+
+### Option 2: Local Development
+
 1. **Clone the repo**
 ```bash
 git clone https://github.com/your-username/tldr.git

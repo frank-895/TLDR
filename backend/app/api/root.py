@@ -14,3 +14,10 @@ def api_tldr():
         "description": "This API accepts any text, summarizes it, extracts key insights, and generates an interactive quiz.",
         "version_info": "The detailed API v1 endpoints are available under /v1/"
     }
+
+@router.get("/health", summary="Health Check", tags=["health"])
+def health_check():
+    """
+    Health check endpoint for Docker and monitoring.
+    """
+    return {"status": "healthy", "service": "TLDR API"}
