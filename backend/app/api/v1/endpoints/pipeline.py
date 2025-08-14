@@ -4,7 +4,8 @@ from ....services.pipeline.pipeline import run_pipeline  # import the function d
 
 router = APIRouter()
 
-@router.post("/", response_model=PipelineResponse, summary="Run full text processing pipeline")
+# Use empty path so both "/v1/pipeline" and "/v1/pipeline/" work without redirects
+@router.post("", response_model=PipelineResponse, summary="Run full text processing pipeline")
 def run_pipeline_endpoint(request: PipelineRequest) -> PipelineResponse:
     """
     Accepts a large text input, summarizes it, and generates a quiz.
