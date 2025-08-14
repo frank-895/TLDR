@@ -1,15 +1,32 @@
-# TLDR Frontend 
-One-page app scaffolded to work with the FastAPI backend. Tailwind is configured and a `Home` page is wired up with a simple form that calls the `/v1/pipeline` endpoint through a dev proxy (`/api`).
+# TLDR Frontend
 
-### How to Start (pnpm)
-- `pnpm dev`: start Vite dev server at `http://localhost:5173`
-- `pnpm build`: production build
-- `pnpm preview`: preview production build
+A single-page application for the **TLDR** backend, built with **React**, **Vite**, and **Tailwind CSS**.
 
-## Features
-- Proxy is set in `vite.config.js` so frontend requests to `/api/*` are forwarded to `http://localhost:8000/*`.
+## 🎯 Features
 
-## Tech Stack
-- Vite
-- React
-- Tailwind
+- **Form-based interface** to submit text to `/v1/pipeline`
+- **Live rendering** of summaries with Markdown styling
+- **Quiz display** from structured backend JSON
+- **Dev Proxy** in `vite.config.js` routes `/api/*` to `http://localhost:8000/*`
+
+## 🛠️ Tech Stack
+
+- **Framework:** React 18 + Vite
+- **Styling:** Tailwind CSS (with typography plugin)
+- **Rendering:** React Markdown
+- **Integration:** API proxy for seamless backend communication
+
+## 🚀 Getting Started
+
+We use **pnpm** for dependency management — it's faster, more disk-efficient, and enforces strict dependency rules.
+
+```bash
+pnpm install
+pnpm dev
+```
+Visit: [http://localhost:5173](http://localhost:5173)
+
+## 🔮 Future Enhancements
+- Streaming UI updates for partial summaries
+- Mobile-optimized layout
+- Document handling for reports, presentations, spreadsheets

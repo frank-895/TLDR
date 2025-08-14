@@ -1,57 +1,63 @@
 # TLDR API Backend
 
-This repository contains the backend API for the **TLDR** app, which summarizes long text and generates quiz questions based on the summary. The API is built with **FastAPI**, powered by **LangChain** and **OpenAI GPT-5 Mini**.
+This is the backend API for the **TLDR** app — a summarization and quiz generation service built with **FastAPI**, **LangChain**, and **OpenAI GPT-4o-mini**.
 
-## How to Start
 
-```bash
-python -m venv backend/venv
-source backend/venv/bin/activate  # Windows: backend\\venv\\Scripts\\activate
-pip install -r backend/requirements.txt
-uvicorn backend.app.main:app --reload --port 8000
-```
+## ⚡ Features
 
-## Features
+- **Summarizes large documents** via chunking + merging
+- **Generates multiple-choice quizzes** based on summaries
+- **Structured JSON output** guaranteed to match schemas
+- **Prompt engineering** for engaging, scannable summaries (sections, bullet points, emojis)
+- **Clean modular design**: `summarize_text()` and `generate_quiz()` are isolated for maintainability
 
-- Summarizes arbitrarily long text documents
-- Generates multiple-choice or True/False quizzes from summaries
-- Handles large documents by chunking and merging
-- Fully structured JSON responses
+## 🛠️ Tech Stack
 
-## API Endpoints
+- **Backend Framework:** FastAPI, Python 3.11
+- **LLM Orchestration:** LangChain
+- **Model:** OpenAI GPT-4o-mini
+- **Utilities:** RecursiveCharacterTextSplitter, python-dotenv
+
+## 📡 API Endpoints
 
 ### `POST /v1/pipeline/`
+Processes text through the summarization + quiz pipeline.
 
-Processes text through the pipeline:
-
-- **Request Body:**
-
-```
+**Request Body:**
+```json
 {
   "text": "Your input text here..."
 }
 ```
 
-- **Response:**
-
-```
+**Response:**
+```json
 {
-  "summary": "Concise summary of input text.",
+  "summary": "Concise, engaging summary.",
   "quiz": [
     {
-      "question": "True or False: Example sentence from summary.",
+      "question": "Example question?",
       "options": [
-        {"label": "True", "is_correct": true},
-        {"label": "False", "is_correct": false}
+        {"label": "A", "is_correct": true},
+        {"label": "B", "is_correct": false},
+        {"label": "C", "is_correct": false},
+        {"label": "D", "is_correct": false}
       ]
     }
   ]
 }
 ```
 
-## Tech Stack
+## 🚀 Getting Started
+```bash
+python -m venv venv
+source venv/bin/activate  # Windows: venv\\Scripts\\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
 
-- **Backend:** FastAPI, Python 3.11
-- **LLM Integration:** LangChain, OpenAI GPT-5 Mini
-- **Environment Management:** python-dotenv
-- **Text Processing:** RecursiveCharacterTextSplitter
+## 🔮 Future Enhancements
+- Streaming responses for real-time summary delivery
+- Parallel chunk processing
+- LangSmith tracing for debugging & metrics
+- API key authentication
