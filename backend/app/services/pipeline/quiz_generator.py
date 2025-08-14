@@ -1,15 +1,9 @@
 from typing import List
-from pydantic import BaseModel
-
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
 from ...core.config import settings
-from ...schemas.pipeline import QuizQuestion, QuizOption
-
-
-class MCQuiz(BaseModel):
-    questions: List[QuizQuestion]
+from ...schemas.pipeline import QuizQuestion, QuizOption, QuizList
 
 
 def _estimate_question_count(text: str, default: int, max_cap: int = 8) -> int:
@@ -43,8 +37,8 @@ def generate_quiz(summary_text: str, max_questions: int = 5, model_name: str = "
         api_key=settings.openai_api_key,
     )
 
-    # Ask the model to return strictly structured JSON matching MCQuiz
-    parser = llm.with_structured_output(MCQuiz)
+    # Ask the model to return strictly structured JSON matching QuizList
+    parser = llm.with_structured_output(QuizList)
 
     prompt = ChatPromptTemplate.from_messages(
         [
@@ -78,7 +72,7 @@ QuizOption = {{ label: str, is_correct: bool }}
     )
 
     chain = prompt | parser
-    result: MCQuiz = chain.invoke({"n": desired_n, "summary": summary_text})
+    result: QuizList = chain.invoke({"n": desired_n, "summary": summary_text})
 
     # Guard against models occasionally returning fewer/more options or T/F
     normalized: List[QuizQuestion] = []
