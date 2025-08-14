@@ -11,7 +11,7 @@ This project demonstrates **end-to-end AI application development** using modern
 - **Structured Output Enforcement** (guaranteed valid JSON)
 - **Clean Modular Architecture** separating summarization, quiz generation, and orchestration
 - **Fast Iteration** with Vite + Tailwind for frontend, FastAPI for backend
-- **LLM Power** from OpenAI GPT-4o-mini (backend-ready for GPT-5 family)
+- **LLM Power** from OpenAI GPT-5-mini
 
 ## 🛠️ Tech Stack
 
