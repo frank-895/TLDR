@@ -9,6 +9,29 @@ html, body, #root {
 }
 
 body {
-  @apply bg-gray-50 text-gray-900;
+  @apply bg-[#0b0f19] text-gray-100 antialiased;
+}
+
+/* Animated gradient background */
+.bg-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 6%) 1px, transparent 0);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+}
+
+.glow {
+  position: absolute;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, rgb(124 58 237 / 0.25), transparent);
+  filter: blur(60px);
+  animation: float 16s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-20px) translateX(20px); }
+  100% { transform: translateY(0) translateX(0); }
 }
 

@@ -24,46 +24,48 @@ export default function Home() {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <label className="block text-sm font-medium">Input Text</label>
-        <textarea
-          className="w-full rounded-md border p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          rows={6}
-          placeholder="Paste or type text to summarize..."
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <label className="block text-sm font-medium text-gray-300">Input Text</label>
+        <div className="group rounded-xl border border-white/10 bg-white/5 p-2 shadow-sm transition focus-within:border-white/20 focus-within:bg-white/10">
+          <textarea
+            className="w-full resize-y rounded-lg bg-transparent p-3 text-gray-100 outline-none placeholder:text-gray-500"
+            rows={8}
+            placeholder="Paste or type text to summarize..."
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+        </div>
         <button
           type="submit"
           disabled={loading || text.trim().length === 0}
-          className="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-white disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-2.5 font-medium text-white shadow-lg shadow-violet-900/20 transition hover:brightness-110 disabled:opacity-50"
         >
           {loading ? 'Processing…' : 'Run Pipeline'}
         </button>
       </form>
 
       {error && (
-        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
           {error}
         </div>
       )}
 
       {result && (
-        <div className="space-y-4">
-          <div className="rounded-lg border bg-white p-4">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
             <h3 className="text-lg font-semibold">Summary</h3>
-            <p className="mt-2 whitespace-pre-wrap text-gray-700">{result.summary}</p>
+            <p className="mt-2 whitespace-pre-wrap text-gray-200">{result.summary}</p>
           </div>
 
-          <div className="rounded-lg border bg-white p-4">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
             <h3 className="text-lg font-semibold">Quiz</h3>
-            <ul className="mt-2 list-disc space-y-3 pl-6">
+            <ul className="mt-2 grid gap-3">
               {result.questions?.map((q, idx) => (
-                <li key={idx} className="space-y-1">
-                  <div className="font-medium">{q.question}</div>
-                  <ul className="list-disc pl-6 text-sm text-gray-700">
+                <li key={idx} className="rounded-lg border border-white/10 bg-black/20 p-3">
+                  <div className="font-medium text-gray-100">{q.question}</div>
+                  <ul className="mt-1 grid gap-1 pl-4 text-sm text-gray-300">
                     {q.choices?.map((c, i) => (
-                      <li key={i}>{c}</li>
+                      <li key={i}>• {c}</li>
                     ))}
                   </ul>
                 </li>
