@@ -20,6 +20,8 @@ llm = ChatOpenAI(
 
 chunk_prompt = PromptTemplate(
     template="""
+    ONLY output the summary. Do NOT include explanations, notes, or extra text.
+
     Summarize the following text so that it's:
 
     - Super concise
@@ -37,6 +39,8 @@ chunk_prompt = PromptTemplate(
 
 final_prompt = PromptTemplate(
     template="""
+    ONLY output the final merged summary. Do NOT include explanations, notes, or extra text.
+
     The following text is a combination of multiple summaries.
     Merge them into a single coherent, concise, and easy-to-read summary. 
 
@@ -47,6 +51,13 @@ final_prompt = PromptTemplate(
     - Add emojis or light formatting to make it more approachable
     - Keep the language simple and engaging
     - Make it scannable so a reader can quickly grasp the key points
+    
+    Format the summary in Markdown:
+    - Use #, ## for headings
+    - Use - for bullet points
+    - Use ** for bold text and * for italic text
+    - Include emojis where appropriate
+    - Do not include plain text paragraphs unless necessary
 
     Summaries to merge:
     {text}

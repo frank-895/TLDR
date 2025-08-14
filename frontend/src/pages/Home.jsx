@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { postJson } from '../lib/apiClient'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 export default function Home() {
   const [text, setText] = useState('')
@@ -25,8 +27,8 @@ export default function Home() {
   return (
     <div className="space-y-10">
       <form onSubmit={handleSubmit} className="space-y-3" id="input">
-        <label className="block text-sm font-medium text-gray-300">Input Text</label>
-        <div className="group rounded-xl border border-white/10 bg-white/5 p-2 shadow-sm transition focus-within:border-white/20 focus-within:bg-white/10 reveal-up">
+      <h3 className="mb-3 text-lg font-medium text-gray-300">Input Text</h3>
+      <div className="group rounded-xl border border-white/10 bg-white/5 p-2 shadow-sm transition focus-within:border-white/20 focus-within:bg-white/10 reveal-up">
           <textarea
             className="w-full resize-y rounded-lg bg-transparent p-3 text-gray-100 outline-none placeholder:text-gray-500"
             rows={8}
@@ -51,21 +53,23 @@ export default function Home() {
       )}
 
       {result && (
-        <div className="grid gap-8 md:grid-cols-2">
-          <div className="reveal-fade rounded-2xl border border-white/10 bg-white/5 p-4">
-            <h3 className="text-lg font-semibold">Summary</h3>
-            <p className="mt-2 whitespace-pre-wrap text-gray-200">{result.summary}</p>
+        <div className="space-y-6">
+          <div>
+            <h3 className="mb-3 text-lg font-medium text-gray-300">Summary</h3>
+            <div className="prose prose-invert prose-base sm:prose-lg max-w-none reveal-fade rounded-2xl border border-white/10 bg-white/5 px-6 pt-4 pb-6 lg:px-8 lg:pt-5 lg:pb-8">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{result.summary || ''}</ReactMarkdown>
+            </div>
           </div>
 
-          <div className="reveal-fade rounded-2xl border border-white/10 bg-white/5 p-4">
-            <h3 className="text-lg font-semibold">Quiz</h3>
-            <ul className="mt-2 grid gap-3">
+          <div className="reveal-fade rounded-2xl border border-white/10 bg-white/5 p-5">
+            <h3 className="mb-2 text-lg font-semibold">Quiz</h3>
+            <ul className="mt-3 grid gap-3">
               {result.questions?.map((q, idx) => (
                 <li key={idx} className="rounded-lg border border-white/10 bg-black/20 p-3 reveal-up">
                   <div className="font-medium text-gray-100">{q.question}</div>
-                  <ul className="mt-1 grid gap-1 pl-4 text-sm text-gray-300">
+                  <ul className="mt-1 grid gap-1 pl-4 text-sm text-gray-300 list-disc">
                     {q.choices?.map((c, i) => (
-                      <li key={i}>• {c}</li>
+                      <li key={i}>{c}</li>
                     ))}
                   </ul>
                 </li>
