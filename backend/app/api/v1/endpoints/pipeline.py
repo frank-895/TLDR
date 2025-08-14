@@ -1,15 +1,17 @@
 from fastapi import APIRouter, HTTPException
-
 from ....schemas.pipeline import PipelineRequest, PipelineResponse
-from ....services import pipeline as pipeline_service
-
+from ....services.pipeline.pipeline import run_pipeline  # import the function directly
 
 router = APIRouter()
 
-
-@router.post("/", response_model=PipelineResponse)
-def run(request: PipelineRequest) -> PipelineResponse:
-	try:
-		return pipeline_service.run_pipeline(request)
-	except Exception as exc:  # noqa: BLE001 - bubble user-friendly error for now
-		raise HTTPException(status_code=500, detail=str(exc))
+@router.post("/", response_model=PipelineResponse, summary="Run full text processing pipeline")
+def run_pipeline_endpoint(request: PipelineRequest) -> PipelineResponse:
+    """
+    Accepts a large text input, summarizes it, and generates a quiz.
+    """
+    try:
+        # Call the modular pipeline
+        return run_pipeline(request)
+    except Exception as exc:
+        # Return a friendly HTTP error
+        raise HTTPException(status_code=500, detail=f"Pipeline processing failed: {str(exc)}")

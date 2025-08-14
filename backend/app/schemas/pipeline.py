@@ -14,5 +14,4 @@ class QuizQuestion(BaseModel):
 
 class PipelineResponse(BaseModel):
 	summary: str
-	insights: List[str]
 	quiz: List[QuizQuestion]
