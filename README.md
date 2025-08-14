@@ -47,6 +47,7 @@ Planned improvements to showcase advanced LangChain + AI engineering skills:
 - **Custom prompt injection defenses** via system/human role structuring
 - **Vector search integration** for context-aware summarization
 - **Document handling** for .docx, .txt, etc. upload
+- **Deployment** of both backend and frontend with user uploaded API key
 
 ## 📂 Repositories
 

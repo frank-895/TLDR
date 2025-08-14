@@ -111,15 +111,21 @@ export default function Home() {
               <ReactMarkdown remarkPlugins={[remarkGfm]}>{result.summary || ''}</ReactMarkdown>
             </div>
             {result?.quiz?.length > 0 && (
-              <div className="mt-4">
-                <button
-                  type="button"
-                  onClick={startQuiz}
-                  className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-medium text-white border border-white/10 hover:bg-white/15 transition"
-                >
-                  Quiz me!
-                </button>
-              </div>
+              <section className="mt-6 border-y border-white/10 py-6">
+                <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-100">Ready to test yourself?</h4>
+                    <p className="mt-1 text-sm text-gray-300">Test your understanding of the text with a short multiple-choice quiz.</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={startQuiz}
+                    className="rounded-lg bg-emerald-600 px-5 py-2 text-sm font-medium text-white shadow-lg hover:bg-emerald-500"
+                  >
+                    Quiz me!
+                  </button>
+                </div>
+              </section>
             )}
           </div>
         </div>
