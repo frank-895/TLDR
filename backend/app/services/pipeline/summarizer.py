@@ -2,6 +2,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.schema import HumanMessage
+from typing import AsyncGenerator
+import asyncio
+from openai import AsyncOpenAI
 
 from ...core.config import settings
 
@@ -90,3 +93,57 @@ def summarize_text(input_text: str) -> str:
     combined_text = " ".join(chunk_summaries)
     final_summary = llm.invoke([HumanMessage(content=final_prompt.format(text=combined_text))])
     return final_summary.content.strip()
+
+
+def _should_flush(buffer: str, min_chars: int) -> bool:
+    if len(buffer) >= min_chars:
+        return True
+    if not buffer:
+        return False
+    return buffer.endswith((". ", "! ", "? ", "\n"))
+
+
+async def stream_final_summary(input_text: str, *, min_chars: int = 120) -> AsyncGenerator[str, None]:
+    """
+    Exact same summarization flow as summarize_text, but streams the final merge:
+    1) Split text
+    2) Summarize chunks with chunk_prompt (non-stream)
+    3) Merge with final_prompt via OpenAI streaming; yield segments
+    """
+    # Step 1: split
+    chunks = await asyncio.to_thread(_split_text, input_text)
+
+    # Step 2: summarize chunks (same as summarize_text)
+    async def summarize_one(c: str) -> str:
+        return await asyncio.to_thread(
+            lambda: llm.invoke([HumanMessage(content=chunk_prompt.format(text=c))]).content.strip()
+        )
+
+    chunk_summaries = []
+    for c in chunks:
+        chunk_summaries.append(await summarize_one(c))
+
+    combined_text = " ".join(chunk_summaries)
+
+    # Step 3: stream the merge
+    client = AsyncOpenAI(api_key=settings.openai_api_key)
+    final_prompt_text = final_prompt.format(text=combined_text)
+    stream = await client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": final_prompt_text}],
+        temperature=0.3,
+        stream=True,
+    )
+
+    buffer = ""
+    async for event in stream:
+        delta = event.choices[0].delta.content or ""
+        if not delta:
+            continue
+        buffer += delta
+        if _should_flush(buffer, min_chars=min_chars):
+            yield buffer
+            buffer = ""
+
+    if buffer:
+        yield buffer
