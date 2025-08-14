@@ -8,6 +8,8 @@ A single-page application for the **TLDR** backend, built with **React**, **Vite
 - **Live rendering** of summaries with Markdown styling
 - **Quiz display** from structured backend JSON
 - **Dev Proxy** in `vite.config.js` routes `/api/*` to `http://localhost:8000/*`
+- **Streaming UI** updates for partial summaries
+
 
 ## 🛠️ Tech Stack
 
@@ -27,6 +29,5 @@ pnpm dev
 Visit: [http://localhost:5173](http://localhost:5173)
 
 ## 🔮 Future Enhancements
-- Streaming UI updates for partial summaries
 - Mobile-optimized layout
 - Document handling for reports, presentations, spreadsheets

@@ -10,6 +10,8 @@ This is the backend API for the **TLDR** app — a summarization and quiz genera
 - **Structured JSON output** guaranteed to match schemas
 - **Prompt engineering** for engaging, scannable summaries (sections, bullet points, emojis)
 - **Clean modular design**: `summarize_text()` and `generate_quiz()` are isolated for maintainability
+- **Streaming responses** for real-time summary delivery
+
 
 ## 🛠️ Tech Stack
 
@@ -57,7 +59,6 @@ uvicorn app.main:app --reload --port 8000
 ```
 
 ## 🔮 Future Enhancements
-- Streaming responses for real-time summary delivery
 - Parallel chunk processing
 - LangSmith tracing for debugging & metrics
 - API key authentication
