@@ -91,7 +91,7 @@ export default function Home() {
         <button
           type="submit"
           disabled={loading || text.trim().length === 0}
-          className="btn-sheen inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-2.5 font-medium text-white shadow-lg shadow-violet-900/20 transition hover:brightness-110 disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-2.5 font-medium text-white shadow-lg shadow-emerald-900/20 transition hover:bg-emerald-500 disabled:opacity-50"
         >
           {loading ? 'Reading for you...' : 'TLDR it!'}
         </button>
@@ -153,7 +153,7 @@ export default function Home() {
                     type="button"
                     onClick={handleNext}
                     disabled={selectedIdx === null}
-                    className="rounded-lg bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-2 text-sm font-medium text-white shadow-lg disabled:opacity-50"
+                    className="rounded-lg bg-emerald-600 px-5 py-2 text-sm font-medium text-white shadow-lg hover:bg-emerald-500 disabled:opacity-50"
                   >
                     {quizIndex === result.quiz.length - 1 ? 'Finish' : 'Next'}
                   </button>
@@ -185,7 +185,7 @@ export default function Home() {
                   <button type="button" onClick={handleCloseQuiz} className="rounded-lg border border-white/10 px-4 py-2 text-sm text-gray-200 hover:bg-white/5">Close</button>
                   <div className="flex items-center gap-3">
                     <button type="button" onClick={handleRestart} className="rounded-lg border border-white/10 px-4 py-2 text-sm text-gray-200 hover:bg-white/5">Retry</button>
-                    <button type="button" onClick={() => { handleRestart(); setIsQuizOpen(false) }} className="rounded-lg bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-2 text-sm font-medium text-white shadow-lg">Done</button>
+                    <button type="button" onClick={() => { handleRestart(); setIsQuizOpen(false) }} className="rounded-lg bg-emerald-600 px-5 py-2 text-sm font-medium text-white shadow-lg hover:bg-emerald-500">Done</button>
                   </div>
                 </div>
               </div>
