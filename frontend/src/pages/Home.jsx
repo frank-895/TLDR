@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { postJson } from '../lib/apiClient'
+import { useState, useRef, useEffect } from 'react'
+import { postJson, openPipelineStream } from '../lib/apiClient'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -8,6 +8,32 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
+  const [displaySummary, setDisplaySummary] = useState('')
+  const wordQueueRef = useRef([])
+  const typerTimerRef = useRef(null)
+  const stopStreamRef = useRef(null)
+
+  // Typewriter loop: drains word queue steadily
+  function startTyper() {
+    if (typerTimerRef.current) return
+    typerTimerRef.current = setInterval(() => {
+      const queue = wordQueueRef.current
+      if (queue.length === 0) {
+        clearInterval(typerTimerRef.current)
+        typerTimerRef.current = null
+        return
+      }
+      const next = queue.shift()
+      setDisplaySummary((prev) => prev + next)
+    }, 28) // ~35 words/sec; adjust to taste
+  }
+
+  function enqueueWords(text) {
+    // Preserve spacing with tokens that end in whitespace
+    const tokens = text.match(/\S+\s*/g) || [text]
+    wordQueueRef.current.push(...tokens)
+    startTyper()
+  }
   const [isQuizOpen, setIsQuizOpen] = useState(false)
   const [quizIndex, setQuizIndex] = useState(0)
   const [selectedIdx, setSelectedIdx] = useState(null)
@@ -20,13 +46,48 @@ export default function Home() {
     setLoading(true)
     setError(null)
     setResult(null)
+    // Reset streaming state
+    setDisplaySummary('')
+    wordQueueRef.current = []
+    if (typerTimerRef.current) { clearInterval(typerTimerRef.current); typerTimerRef.current = null }
+    // Abort any previous stream
+    try { stopStreamRef.current?.() } catch {}
     try {
-      const data = await postJson('/v1/pipeline', { text })
-      setResult(data)
+      // Fallback: if streaming fails, do a single request
+
+      let streamedQuiz = null
+      const stop = openPipelineStream({
+        text,
+        onChunk: (chunk) => {
+          enqueueWords(chunk)
+        },
+        onComplete: () => {
+          // no-op, final summary received
+        },
+        onQuiz: (quiz) => {
+          streamedQuiz = quiz
+          setResult((prev) => ({ ...(prev || {}), quiz: streamedQuiz }))
+        },
+        onError: async (err) => {
+          setError(err.message)
+          setLoading(false)
+          stop?.()
+          try {
+            const data = await postJson('/v1/pipeline', { text })
+            setResult(data)
+          } catch {}
+        },
+        onDone: () => {
+          setLoading(false)
+        }
+      })
+      stopStreamRef.current = stop
+      // Let the socket drive updates; close returned for potential cleanup
+      // We don't await here; UI updates incrementally
     } catch (err) {
       setError(err.message)
     } finally {
-      setLoading(false)
+      // loading is toggled off by onDone or onError for accurate timing
     }
   }
 
@@ -93,7 +154,7 @@ export default function Home() {
           disabled={loading || text.trim().length === 0}
           className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-2.5 font-medium text-white shadow-lg shadow-emerald-900/20 transition hover:bg-emerald-500 disabled:opacity-50"
         >
-          {loading ? 'Reading for you...' : 'TLDR it!'}
+          {loading ? 'Working…' : 'TLDR it!'}
         </button>
       </form>
 
@@ -103,12 +164,14 @@ export default function Home() {
         </div>
       )}
 
-      {result && (
+      {(loading || result) && (
         <div className="space-y-6">
           <div>
             <h3 className="mb-3 text-lg font-medium text-gray-300">Summary</h3>
             <div className="prose prose-invert prose-base sm:prose-lg max-w-none reveal-fade rounded-2xl border border-white/10 bg-white/5 px-6 pt-4 pb-6 lg:px-8 lg:pt-5 lg:pb-8">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{result.summary || ''}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {loading ? (displaySummary || '') : (result.summary || displaySummary || '')}
+              </ReactMarkdown>
             </div>
             {result?.quiz?.length > 0 && (
               <section className="mt-6 border-y border-white/10 py-6">

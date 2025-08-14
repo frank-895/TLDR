@@ -35,19 +35,19 @@ This project demonstrates **end-to-end AI application development** using modern
 - **Modular, testable pipeline architecture**
 - **Async and parallel processing** readiness for large workloads
 - **Frontend-backend API integration**
-- **Environment configuration & secret management**
+- **Streaming via OpenAI** for smooth, immediate feedback.
 
 ## 🔮 Future Enhancements
 
 Planned improvements to showcase advanced LangChain + AI engineering skills:
 
-- **Streaming LLM responses** for real-time summary/quiz rendering
 - **Parallel chunk processing** for faster large-document summarization
 - **LangSmith tracing** for debugging and performance insights
 - **Custom prompt injection defenses** via system/human role structuring
 - **Vector search integration** for context-aware summarization
 - **Document handling** for .docx, .txt, etc. upload
 - **Deployment** of both backend and frontend with user uploaded API key
+- **Automated testing** for scalability and reliability
 
 ## 📂 Repositories
 
