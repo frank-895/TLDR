@@ -30,15 +30,7 @@ export default function App() {
                 <h2 className="text-5xl font-extrabold tracking-tight text-white md:text-6xl">Too long, didn't read</h2>
                 <p className="mt-6 text-xl text-gray-300">Paste text, get a summary and an interactive quiz.</p>
               </div>
-              <div className="pointer-events-none absolute inset-0 -z-0">
-                <div className="absolute right-[5%] top-1/2 -translate-y-1/2 opacity-60 md:opacity-70 lg:opacity-80">
-                  <img
-                    src="/hero-blobs.svg"
-                    alt="Animated gradient blobs"
-                    className="h-[28rem] w-[28rem] select-none object-contain md:h-[34rem] md:w-[34rem] lg:h-[40rem] lg:w-[40rem] xl:h-[46rem] xl:w-[46rem]"
-                  />
-                </div>
-              </div>
+              {/* Blobs removed to avoid GPU-intensive animation */}
             </section>
             <Home />
           </div>

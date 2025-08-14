@@ -17,7 +17,8 @@ body {
   background-image: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 6%) 1px, transparent 0);
   background-size: 24px 24px;
   mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
-  animation: gridPan 30s linear infinite;
+  /* animation disabled for performance */
+  animation: none;
 }
 
 .glow {
@@ -27,7 +28,8 @@ body {
   border-radius: 9999px;
   background: radial-gradient(closest-side, rgb(124 58 237 / 0.25), transparent);
   filter: blur(60px);
-  animation: float 16s ease-in-out infinite;
+  /* animation disabled for performance */
+  animation: none;
 }
 
 @keyframes float {
@@ -67,7 +69,8 @@ body {
   width: 60%;
   transform: skewX(-20deg);
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-  animation: sheen 2.4s ease-in-out infinite;
+  /* animation disabled for performance */
+  animation: none;
 }
 
 @keyframes sheen {

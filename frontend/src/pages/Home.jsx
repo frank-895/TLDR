@@ -42,7 +42,7 @@ export default function Home() {
           disabled={loading || text.trim().length === 0}
           className="btn-sheen inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-2.5 font-medium text-white shadow-lg shadow-violet-900/20 transition hover:brightness-110 disabled:opacity-50"
         >
-          {loading ? 'Processing…' : 'Run Pipeline'}
+          {loading ? 'Reading for you...' : 'TLDR it!'}
         </button>
       </form>
 
