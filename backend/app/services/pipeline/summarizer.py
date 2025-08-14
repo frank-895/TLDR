@@ -1,21 +1,17 @@
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.schema import HumanMessage
 
-import os
-from dotenv import load_dotenv
+from ...core.config import settings
 
-load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-if not OPENAI_API_KEY:
-    raise ValueError("OPENAI_API_KEY not found in environment variables")
+if not settings.openai_api_key:
+    raise ValueError("OPENAI_API_KEY is not configured.")
 
 llm = ChatOpenAI(
-    model_name="gpt-5-mini",
+    model="gpt-4o-mini",
     temperature=0.3,
-    openai_api_key=OPENAI_API_KEY
+    api_key=settings.openai_api_key,
 )
 
 chunk_prompt = PromptTemplate(
@@ -93,5 +89,4 @@ def summarize_text(input_text: str) -> str:
     # Merge chunk summaries
     combined_text = " ".join(chunk_summaries)
     final_summary = llm.invoke([HumanMessage(content=final_prompt.format(text=combined_text))])
-
     return final_summary.content.strip()

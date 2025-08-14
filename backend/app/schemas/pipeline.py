@@ -15,3 +15,7 @@ class QuizQuestion(BaseModel):
 class PipelineResponse(BaseModel):
 	summary: str
 	quiz: List[QuizQuestion]
+
+# Wrapper used for LLM structured output when returning a list of questions
+class QuizList(BaseModel):
+	questions: List[QuizQuestion]

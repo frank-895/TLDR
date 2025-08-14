@@ -1,34 +1,81 @@
-# TLDR
-Your personal AI for instant understanding.
+# TLDR 📚✂️
 
-## Features
-- Summarize long-form text into concise takeaways
-- Generate multiple-choice or true/false quizzes from the summary
-- One-page frontend with a simple input form and results display
-- JSON-first backend responses for easy consumption
+**TLDR** is a full-stack application that takes long-form text, summarizes it into a concise, engaging format, and generates interactive quizzes to test comprehension.
 
-## Tech Stack
-- Backend: `FastAPI` (Python), LangChain, OpenAI
-- Frontend: `Vite` + `React` + `Tailwind CSS`
-- Package manager: `pnpm`
+This project demonstrates **end-to-end AI application development** using modern frameworks, robust API design, and advanced LangChain techniques.
 
-## How to Start (brief)
-1) Backend
+## 🚀 Features
+
+- **Summarization** of arbitrarily long documents with chunking + intelligent merging
+- **Quiz Generation** with multiple-choice questions matching the text’s complexity
+- **Structured Output Enforcement** (guaranteed valid JSON)
+- **Clean Modular Architecture** separating summarization, quiz generation, and orchestration
+- **Fast Iteration** with Vite + Tailwind for frontend, FastAPI for backend
+- **LLM Power** from OpenAI GPT-4o-mini (backend-ready for GPT-5 family)
+
+## 🛠️ Tech Stack
+
+### Backend
+- **FastAPI** – Modern Python API framework
+- **LangChain** – Prompt engineering, LLM orchestration, structured outputs
+- **OpenAI GPT-5-mini** – Low-latency, high-quality LLM
+- **RecursiveCharacterTextSplitter** – Large document handling
+
+### Frontend
+- **React + Vite** – Lightning-fast dev environment
+- **Tailwind CSS** – Utility-first styling
+- **React Markdown** – Rich rendering of LLM-generated markdown
+- **API Proxy** – Seamless dev integration with backend
+- **pnpm** – Efficient, disk-space-saving package manager with strict dependency resolution
+
+## 🧠 Skills Demonstrated
+
+- **Prompt engineering** (multi-step chunking & merging strategies)
+- **LangChain structured output parsing** (Quiz JSON validation)
+- **Modular, testable pipeline architecture**
+- **Async and parallel processing** readiness for large workloads
+- **Frontend-backend API integration**
+- **Environment configuration & secret management**
+
+## 🔮 Future Enhancements
+
+Planned improvements to showcase advanced LangChain + AI engineering skills:
+
+- **Streaming LLM responses** for real-time summary/quiz rendering
+- **Parallel chunk processing** for faster large-document summarization
+- **LangSmith tracing** for debugging and performance insights
+- **Custom prompt injection defenses** via system/human role structuring
+- **Vector search integration** for context-aware summarization
+- **Document handling** for .docx, .txt, etc. upload
+- **Deployment** of both backend and frontend with user uploaded API key
+
+## 📂 Repositories
+
+- [Backend API](./backend/README.md) – FastAPI + LangChain summarization & quiz service
+- [Frontend](./frontend/README.md) – React + Tailwind app for user interaction
+
+## 🏗️ Getting Started
+
+1. **Clone the repo**
 ```bash
-python -m venv backend/venv
-source backend/venv/bin/activate  # Windows: backend\\venv\\Scripts\\activate
-pip install -r backend/requirements.txt
-uvicorn backend.app.main:app --reload --port 8000
+git clone https://github.com/your-username/tldr.git
 ```
 
-2) Frontend
+2. **Backend setup**
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # Windows: venv\\Scripts\\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
+
+3. **Frontend setup**
 ```bash
 cd frontend
 pnpm install
 pnpm dev
 ```
 
-3) Open the app
-- Frontend dev server: `http://localhost:5173`
-- API root: `http://localhost:8000/` (v1 under `/v1`)
-
+## 📜 License
+SEE [LICENSE](LICENSE)
