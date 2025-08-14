@@ -77,9 +77,22 @@ API_AUTH_KEY=your_api_auth_key_here
 VITE_API_URL=http://localhost:8000
 ```
 
-3. **Start with Docker**
+3. **Start with Makefile commands**
 ```bash
-docker-compose up --build
+# Start all services
+make up
+
+# Start services in background
+make up-d
+
+# View logs
+make logs
+
+# Stop services
+make down
+
+# Rebuild and restart
+make restart
 ```
 
 4. **Access the application**
@@ -87,20 +100,15 @@ docker-compose up --build
 - Backend API: http://localhost:8000
 - API Docs: http://localhost:8000/docs
 
-**Docker Commands:**
+**Available Makefile Commands:**
 ```bash
-# Start services in background
-docker-compose up -d --build
-
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
-
-# Rebuild specific service
-docker-compose build backend
-docker-compose build frontend
+make up          # Start all services
+make up-d        # Start services in background
+make down        # Stop all services
+make restart     # Rebuild and restart services
+make logs        # View service logs
+make clean       # Remove containers and volumes
+make build       # Build all services
 ```
 
 ### Option 2: Local Development
