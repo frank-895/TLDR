@@ -2,8 +2,6 @@
 
 **TLDR** is a full-stack application that takes long-form text, summarizes it into a concise, engaging format, and generates interactive quizzes to test comprehension.
 
-This project demonstrates **end-to-end AI application development** using modern frameworks, robust API design, and advanced LangChain techniques.
-
 ## 🚀 Features
 
 - **Summarization** of arbitrarily long documents with chunking + intelligent merging
@@ -18,36 +16,10 @@ This project demonstrates **end-to-end AI application development** using modern
 ### Backend
 - **FastAPI** – Modern Python API framework
 - **LangChain** – Prompt engineering, LLM orchestration, structured outputs
-- **OpenAI GPT-5-mini** – Low-latency, high-quality LLM
-- **RecursiveCharacterTextSplitter** – Large document handling
 
 ### Frontend
 - **React + Vite** – Lightning-fast dev environment
 - **Tailwind CSS** – Utility-first styling
-- **React Markdown** – Rich rendering of LLM-generated markdown
-- **API Proxy** – Seamless dev integration with backend
-- **pnpm** – Efficient, disk-space-saving package manager with strict dependency resolution
-
-## 🧠 Skills Demonstrated
-
-- **Prompt engineering** (multi-step chunking & merging strategies)
-- **LangChain structured output parsing** (Quiz JSON validation)
-- **Modular, testable pipeline architecture**
-- **Async and parallel processing** readiness for large workloads
-- **Frontend-backend API integration**
-- **Streaming via OpenAI** for smooth, immediate feedback.
-
-## 🔮 Future Enhancements
-
-Planned improvements to showcase advanced LangChain + AI engineering skills:
-
-- **Parallel chunk processing** for faster large-document summarization
-- **LangSmith tracing** for debugging and performance insights
-- **Custom prompt injection defenses** via system/human role structuring
-- **Vector search integration** for context-aware summarization
-- **Document handling** for .docx, .txt, etc. upload
-- **Deployment** of both backend and frontend with user uploaded API key
-- **Automated testing** for scalability and reliability
 
 ## 📂 Repositories
 
